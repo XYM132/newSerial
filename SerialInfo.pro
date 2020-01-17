@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -32,3 +32,10 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+LIBS += -luser32
+
+RESOURCES += \
+    icon.qrc
+
+RC_ICOS = :/img/img/com.ico
