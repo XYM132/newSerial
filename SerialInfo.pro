@@ -25,13 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    seting.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    seting.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    seting.ui
 
 LIBS += -luser32
 

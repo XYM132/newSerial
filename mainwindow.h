@@ -9,6 +9,8 @@
 #include <QMenu>
 #include <QSettings>
 #include <QTimer>
+#include "seting.h"
+#include <QApplication>
 
 namespace Ui {
 class MainWindow;
@@ -21,8 +23,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QApplication* app,QWidget *parent = 0);
     ~MainWindow();
+
+
 
 private slots:
     void on_pushButton_clicked();
@@ -32,6 +36,7 @@ private slots:
     void slotcloseApp();
 
     void TimerTimeOut();
+    void openSetting();
 
 private:
     Ui::MainWindow *ui;
@@ -43,6 +48,10 @@ private:
     QMenu* _menu;
 
     QTimer* m_timer;
+
+    QApplication* app;
+
+
 
 
 

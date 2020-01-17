@@ -13,20 +13,28 @@
 #include <QDesktopWidget>
 #include <QMessageBox>
 
-MainWindow::MainWindow(QWidget *parent) :
+
+
+MainWindow::MainWindow(QApplication* app,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    on_pushButton_clicked();
+
 
     isClose=false;
+    this->app = app;
+
+
+    on_pushButton_clicked();
 
     _icon = new QSystemTrayIcon();
     _menu = new QMenu();
     _icon->setIcon(QIcon(":/img/img/com.ico"));
     _icon->setToolTip("查看系统串口.");
 
+
+    _menu->addAction("设置",this,SLOT(openSetting()));
     _menu->addAction("退出",this,SLOT(slotcloseApp()));
 
     _icon->setContextMenu(_menu);
@@ -77,25 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 #endif
 
-#if 1 //写入开机自启
-    QString appName = QApplication::applicationName();//程序名称
-
-    QString appPath = QApplication::applicationFilePath();// 程序路径
-
-    appPath = appPath.replace("/","\\");
-
-    QSettings *reg=new QSettings(
-                "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
-                QSettings::NativeFormat);
-
-    QString val = reg->value(appName).toString();// 如果此键不存在，则返回的是空字符串
-    if(val != appPath)
-        reg->setValue(appName,appPath);// 如果移除的话，reg->remove(applicationName);
-
-    reg->deleteLater();
-
     this->hide();
-#endif
 
     this->setWindowFlags(Qt::FramelessWindowHint);
 
@@ -224,6 +214,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if(isClose){
         _icon->deleteLater();
         event->accept();
+        app->quit();
      }
 
     else {
@@ -256,6 +247,12 @@ void MainWindow::slotcloseApp()
 void MainWindow::TimerTimeOut()
 {
     this->hide();
+}
+
+void MainWindow::openSetting()
+{
+    seting* s = new seting();
+    s->show();
 }
 
 
